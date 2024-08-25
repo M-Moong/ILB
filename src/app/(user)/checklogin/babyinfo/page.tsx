@@ -84,6 +84,10 @@ export default function BabyInfo() {
             );
 
             if (resData.ok) {
+                localStorage.setItem(
+                    'toastMessage',
+                    `ILB의 회원가입을 환영합니다.`,
+                );
                 router.push('/');
             } else {
                 // API 서버의 에러 메시지 처리
@@ -135,7 +139,7 @@ export default function BabyInfo() {
             <Button
                 form='signup-form'
                 type='submit'
-                className={`font-notoSansKr fixed bottom-[2.5vh] box-border ${!isValid ? 'bg-gray-400' : ''}`}
+                className={`fixed mb-[60px] ${!isValid ? 'bg-gray-400' : ''}`}
                 variant='default'
                 size='fixed'
                 disabled={!isValid}
