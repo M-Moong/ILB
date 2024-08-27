@@ -158,9 +158,7 @@ export default function Signup() {
                 remakeData.attach.length > 0
             ) {
                 const body = new FormData();
-                console.log('remakeData.attach[0]', remakeData.attach[0]);
                 body.append('attach', remakeData.attach[0]);
-                console.log('body', body);
                 const fileRes = await fetch(`${SERVER}/files`, {
                     method: 'POST',
                     headers: {

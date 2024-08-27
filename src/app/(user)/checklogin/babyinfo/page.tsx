@@ -77,14 +77,11 @@ export default function BabyInfo() {
     async function onSubmit(formData: BabyInputForm) {
         const userData = new FormData();
 
-        // 버튼이 'submit'이지만 마지막 BabyBody step에서만 전송이 가능하다.
-        // 나머지는 다음 페이지로 넘어가는 버튼으로 작동
         if (step !== 'BabyBody') return;
 
         const formattedDate = format(new Date(), 'yyyyMMdd');
 
         try {
-            // passwordCheck 데이터를 제외를 위한 객체복사
             const { babyName, birth, height, weight, gender, attach } =
                 formData;
 
@@ -111,20 +108,12 @@ export default function BabyInfo() {
                 },
             };
 
-            //# const resData = await actionDataFetch(
-            //     'PATCH',
-            //     userId,
-            //     accessToken,
-            //     remakeData,
-            // );
-
             Object.entries(formData).forEach(([key, value]) => {
                 if (key !== 'attach') {
                     userData.append(key, value as string);
                 }
             });
             if (formData.attach) {
-                console.log('여기 잡히냐?');
                 userData.append('attach', formData.attach[0]);
             }
 
@@ -134,9 +123,7 @@ export default function BabyInfo() {
                 remakeData.attach.length > 0
             ) {
                 const body = new FormData();
-                console.log('remakeData.attach[0]', remakeData.attach[0]);
                 body.append('attach', remakeData.attach[0]);
-                console.log('body', body);
                 const fileRes = await fetch(`${SERVER}/files`, {
                     method: 'POST',
                     headers: {
@@ -154,13 +141,6 @@ export default function BabyInfo() {
                 remakeData.profileImage = resJson.item[0].path;
             }
             delete remakeData.attach;
-
-            //# const resData = await actionDataFetch(
-            //     'PATCH',
-            //     userId,
-            //     accessToken,
-            //     remakeData,
-            // );
 
             // 소셜 회원 가입
             const res = await fetch(`${SERVER}/users/${userId}`, {
