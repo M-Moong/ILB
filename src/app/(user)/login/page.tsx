@@ -83,13 +83,30 @@ export default function Login() {
                     duration: 1000,
                 });
             } else {
-                localStorage.setItem('toastMessage', `로그인이 되었습니다.`);
-                router.push('/');
+                if (data.email === 'test@test.com') {
+                    localStorage.setItem(
+                        'toastMessage',
+                        `테스트 계정으로 로그인 되었습니다.`,
+                    );
+                    router.push('/');
+                } else {
+                    localStorage.setItem(
+                        'toastMessage',
+                        `로그인이 되었습니다.`,
+                    );
+                    router.push('/');
+                }
             }
         } else {
             router.push('/');
         }
     }
+
+    const handleTestLogin = () => {
+        form.setValue('email', 'test@test.com');
+        form.setValue('password', '123!@#qwe');
+        form.handleSubmit(onSubmit)();
+    };
 
     return (
         <section>
@@ -139,20 +156,25 @@ export default function Login() {
                             </FormItem>
                         )}
                     />
-                    <Button type='submit' className='mt-[60px]'>
+                    <Button type='submit' className='mt-[60px] hover:scale-105'>
                         로그인
+                    </Button>
+                    <Button
+                        variant={'outline'}
+                        type='button'
+                        onClick={handleTestLogin}
+                        className='mt-4 border-2 text-txt-foreground hover:scale-105'>
+                        테스트 계정으로 로그인
                     </Button>
                 </form>
             </Form>
-            <p className='text-txt-foreground text-center mt-[18px] text-xs'>
+            <p className='text-txt-foreground text-center mt-[18px] text-xs hover:scale-105 checked:scale-95'>
                 아직 회원이 아니신가요?{' '}
-                <Link
-                    href='/signup'
-                    className='text-txt font-medium'
-                    scroll={false}>
+                <Link href='/signup' className='text-txt font-medium '>
                     회원가입
                 </Link>
             </p>
+
             <div className='flex items-center mb-10 mt-[60px]'>
                 <p className='flex grow h-[1px] bg-txt-foreground' />
                 <span className='px-[13px] text-xs font-light text-txt-foreground'>
@@ -165,7 +187,7 @@ export default function Login() {
                 className='flex justify-between px-6 mb-14'>
                 <Button
                     type='submit'
-                    className='bg-white'
+                    className='bg-white hover:scale-125 checked:scale-95'
                     size='xs'
                     variant='icon'
                     formAction={signInWithGithub}>
@@ -178,7 +200,7 @@ export default function Login() {
                 </Button>
                 <Button
                     type='submit'
-                    className='bg-white'
+                    className='bg-white hover:scale-125 checked:scale-95'
                     size='xs'
                     variant='icon'
                     formAction={signInWithGoogle}>
@@ -191,7 +213,7 @@ export default function Login() {
                 </Button>
                 <Button
                     type='submit'
-                    className='bg-white'
+                    className='bg-white hover:scale-125 checked:scale-95'
                     size='xs'
                     variant='icon'
                     formAction={signInWithDiscord}>
