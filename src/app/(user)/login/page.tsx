@@ -83,7 +83,6 @@ export default function Login() {
                     duration: 1000,
                 });
             } else {
-                console.log(data.email);
                 if (data.email === 'test@test.com') {
                     localStorage.setItem(
                         'toastMessage',
