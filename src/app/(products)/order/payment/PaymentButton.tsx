@@ -52,7 +52,7 @@ export default function PaymentButton({ disabled }: Props) {
                         router.push('/order/complete');
                     } else {
                         // 결제 실패 시 로직
-                        console.log('결제 실패', rsp);
+                        console.error('결제 실패', rsp);
                         alert(
                             `결제에 실패하였습니다. 에러 내용: ${
                                 rsp.error_msg

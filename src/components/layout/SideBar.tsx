@@ -148,7 +148,7 @@ export default function SideBar() {
                             </motion.button>
                             <motion.button
                                 key={4}
-                                onClick={() => handleLinkClick('/')}
+                                onClick={() => handleLinkClick('/together')}
                                 whileHover={{ scale: 1.1 }}
                                 variants={itemVariants}
                                 className='hover:bg-[#fdf9f9] flex items-center w-[90%] mx-auto rounded-lg py-3 px-5 text-left'>

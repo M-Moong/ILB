@@ -30,7 +30,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
                 if (resJson.ok) {
                     const user = resJson.item;
-                    console.log(user);
+
                     return {
                         id: user._id,
                         email: user.email,
@@ -114,7 +114,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                             return resData.message;
                         }
                     } catch (err) {
-                        console.log(err);
+                        console.error(err);
                         throw err;
                     }
 
