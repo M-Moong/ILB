@@ -15,20 +15,21 @@ export default async function MyPage() {
     return (
         <section className='py-7'>
             <div className='flex gap-5 items-center mb-14'>
-                <div className='w-[90px]'>
-                    <div className='flex justify-center items-center w-[90px] h-[90px] rounded-full'>
+                <div className='w-[100px]'>
+                    <div className='flex justify-center items-center w-[100px] h-[100px] rounded-full overflow-hidden'>
                         {profile && profile?.slice(0, 6) === '/files' ? (
                             <Image
                                 src={`${SERVER}${profile}`}
-                                width={60}
-                                height={60}
+                                width={100}
+                                height={100}
                                 alt='baby_profile_img'
+                                className='object-cover h-full'
                             />
                         ) : (
                             <Image
                                 src='/baby/baby_avatar.svg'
-                                width={60}
-                                height={60}
+                                width={75}
+                                height={75}
                                 alt='baby_profile_img'
                             />
                         )}
