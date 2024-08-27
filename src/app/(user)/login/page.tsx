@@ -83,8 +83,20 @@ export default function Login() {
                     duration: 1000,
                 });
             } else {
-                localStorage.setItem('toastMessage', `로그인이 되었습니다.`);
-                router.push('/');
+                console.log(data.email);
+                if (data.email === 'test@test.com') {
+                    localStorage.setItem(
+                        'toastMessage',
+                        `테스트 계정으로 로그인 되었습니다.`,
+                    );
+                    router.push('/');
+                } else {
+                    localStorage.setItem(
+                        'toastMessage',
+                        `로그인이 되었습니다.`,
+                    );
+                    router.push('/');
+                }
             }
         } else {
             router.push('/');
