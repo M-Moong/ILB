@@ -39,7 +39,7 @@ export default function PaymentButton({ disabled }: Props) {
                     pay_method: 'card',
                     merchant_uid: `payment-${generateRandomString()}`,
                     name: '테스트 결제',
-                    amount: 49000,
+                    amount: 69000,
                     buyer_name: 'ILB',
                     buyer_tel: '010-0000-0000',
                     m_redirect_url: `${BASE_URL}/order/payment/check`,
@@ -52,7 +52,7 @@ export default function PaymentButton({ disabled }: Props) {
                         router.push('/order/complete');
                     } else {
                         // 결제 실패 시 로직
-                        console.log('결제 실패', rsp);
+                        console.error('결제 실패', rsp);
                         alert(
                             `결제에 실패하였습니다. 에러 내용: ${
                                 rsp.error_msg

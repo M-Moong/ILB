@@ -30,7 +30,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
                 if (resJson.ok) {
                     const user = resJson.item;
-                    console.log(user);
+
                     return {
                         id: user._id,
                         email: user.email,
@@ -114,7 +114,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                             return resData.message;
                         }
                     } catch (err) {
-                        console.log(err);
+                        console.error(err);
                         throw err;
                     }
 
@@ -146,6 +146,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 token.accessToken = user.accessToken;
                 token.refreshToken = user.refreshToken;
                 token.providerAccountId = user.providerAccountId ?? null;
+                token.image = user.image;
             }
 
             return token;
@@ -160,6 +161,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 session.user.email = token.email as string;
                 session.user.phone = token.phone as string;
                 session.user.address = token.address as string;
+                session.user.image = token.image as string;
                 const extra = token.extra as {
                     baby: BabyInfoData;
                     subscribe: boolean;

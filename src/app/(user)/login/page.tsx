@@ -94,7 +94,7 @@ export default function Login() {
     return (
         <section>
             <Image
-                src='/logo_M.svg'
+                src='/logo/logo_M.svg'
                 alt='ILB'
                 width={60}
                 height={60}
@@ -146,7 +146,10 @@ export default function Login() {
             </Form>
             <p className='text-txt-foreground text-center mt-[18px] text-xs'>
                 아직 회원이 아니신가요?{' '}
-                <Link href='/signup' className='text-txt font-medium'>
+                <Link
+                    href='/signup'
+                    className='text-txt font-medium'
+                    scroll={false}>
                     회원가입
                 </Link>
             </p>

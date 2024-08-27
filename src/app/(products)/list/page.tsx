@@ -11,7 +11,7 @@ export const metadata: Metadata = {
         description: '초보 육아러들을 위한 따뜻한 서비스',
         url: '/list',
         images: {
-            url: '/logo_bg.svg',
+            url: '/logo/logo_bg.svg',
         },
     },
 };
@@ -24,7 +24,7 @@ export default async function ListPage() {
                     우리 아이를 위해 준비했어요
                 </h1>
                 <StepList />
-                <Link href='/order'>
+                <Link href='/order' scroll={false}>
                     <Button
                         type='button'
                         className='my-[60px] box-border'

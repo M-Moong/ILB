@@ -1,22 +1,32 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
 export default function notFound() {
     return (
-        <div className='py-20 bg-red-100 border border-red-400 text-red-700 p-4 rounded-lg flex flex-col items-center space-y-2'>
-            <h2 className='text-xl font-semibold mb-2 text-center'>
-                🚧 앗, 무언가 잘못됐네요!
-            </h2>
-            <h3 className='text-md font-semibold mb-2 text-center'>
-                요청하신 페이지를 찾을 수 없습니다.
-            </h3>
-            <Link
-                href='/'
-                className='bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600'>
-                ⚙️ 홈으로 돌아가기
-            </Link>
+        <div className='flex flex-col items-center py-20 bg-white text-txt p-4 space-y-2 h-screen'>
+            <h1 className='text-2xl font-medium mt-[8%] text-center'>
+                페이지를 찾을 수 없어요!
+            </h1>
+            <Image
+                src={'/not-found.webp'}
+                alt='에러 페이지'
+                width={200}
+                height={200}
+                className='py-[10%]'
+            />
+            <p className='text-center break-keep'>
+                걱정하지 마세요, 다른 유용한 정보로 안내해 드릴게요.
+            </p>
+            <div className='fixed p-[2px] bottom-[60px] max-w-default w-default h-default text-center bg-gradient-to-r from-[#FF8087] to-[#FFAD6E] rounded-default'>
+                <Link
+                    href='/'
+                    className='flex justify-center items-center bg-white w-full h-14 rounded-default hover:bg-gradient-to-r from-[#FF8087] to-[#FFAD6E]'>
+                    🏠 집으로 돌아가기
+                </Link>
+            </div>
         </div>
     );
 }

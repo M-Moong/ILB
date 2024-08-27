@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
-import { emailCheck, signup } from '@/data/actions/userAction';
+import { emailCheck } from '@/data/actions/userAction';
 import Funnel from '@/lib/funnel/Funnel';
 import useFunnel from '@/lib/funnel/useFunnel';
 import { ResError, UserSignUpForm } from '@/types';
@@ -17,8 +17,18 @@ import BabyBody from './(baby)/BabyBody';
 import BabyGender from './(baby)/BabyGender';
 import BabyName from './(baby)/BabyName';
 import SignupForm from './(user)/SignupForm';
+import BabyProfile from './(baby)/BabyProfile';
 
-const steps = ['usersignup', 'babyname', 'babygender', 'babybirth', 'babybody'];
+const steps = [
+    'usersignup',
+    'babyname',
+    'babygender',
+    'babybirth',
+    'babyprofile',
+    'babybody',
+];
+
+const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 export default function Signup() {
     const router = useRouter();
@@ -40,6 +50,7 @@ export default function Signup() {
             birth: '',
             height: '',
             weight: '',
+            attach: '',
             gender: 'boy',
         },
         mode: 'onChange',
@@ -87,6 +98,8 @@ export default function Signup() {
 
     // 회원가입시 formData 전송
     async function onSubmit(formData: UserSignUpForm) {
+        const userData = new FormData();
+
         // 버튼이 'submit'이지만 마지막 BabyBody step에서만 전송이 가능하다.
         // 나머지는 다음 페이지로 넘어가는 버튼으로 작동
         if (step !== 'babybody') return;
@@ -105,6 +118,15 @@ export default function Signup() {
                 gender,
                 ...filteredData
             } = formData;
+
+            Object.entries(formData).forEach(([key, value]) => {
+                if (key !== 'attach') {
+                    userData.append(key, value as string);
+                }
+            });
+            if (formData.attach) {
+                userData.append('attach', formData.attach[0]);
+            }
 
             const remakeData = {
                 ...filteredData,
@@ -128,7 +150,45 @@ export default function Signup() {
                 },
             };
 
-            const resData = await signup(remakeData);
+            //# const resData = await signup(remakeData);
+
+            // 이미지 업로드
+            if (
+                remakeData.attach !== undefined &&
+                remakeData.attach.length > 0
+            ) {
+                const body = new FormData();
+                body.append('attach', remakeData.attach[0]);
+                const fileRes = await fetch(`${SERVER}/files`, {
+                    method: 'POST',
+                    headers: {
+                        'client-id': '05-ILB',
+                    },
+                    body,
+                });
+
+                const resJson = await fileRes.json();
+
+                if (!resJson.ok) {
+                    throw new Error('파일 업로드 실패.');
+                }
+
+                remakeData.profileImage = resJson.item[0].path;
+            }
+            delete remakeData.attach;
+
+            // 회원 가입
+            const res = await fetch(`${SERVER}/users`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'client-id': '05-ILB',
+                },
+                body: JSON.stringify(remakeData),
+            });
+
+            const resData = await res.json();
+            // return resData;
 
             if (resData.ok) {
                 localStorage.setItem(
@@ -153,11 +213,10 @@ export default function Signup() {
             console.error(error);
         }
     }
-
     return (
         <section>
             <Image
-                src='/logo_M.svg'
+                src='/logo/logo_M.svg'
                 alt='ILB'
                 width={60}
                 height={60}
@@ -182,6 +241,9 @@ export default function Signup() {
                             </Funnel.Step>
                             <Funnel.Step name='babybirth'>
                                 <BabyBirth />
+                            </Funnel.Step>
+                            <Funnel.Step name='babyprofile'>
+                                <BabyProfile />
                             </Funnel.Step>
                             <Funnel.Step name='babybody'>
                                 <BabyBody />

@@ -5,6 +5,7 @@ import HeaderSelector from '@/components/layout/HeaderSelector';
 import AuthSession from './AuthSession';
 import { Toaster } from '@/components/ui/toaster';
 import { QueryProviders } from './QueryProvider';
+import SessionHandler from './SessionHandler';
 
 const notoSansKr = Noto_Sans_KR({
     preload: false,
@@ -13,6 +14,9 @@ const notoSansKr = Noto_Sans_KR({
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://ilovebaby.shop'),
+    icons: {
+        icon: '/logo/logo_favicon.svg',
+    },
 };
 
 export default function RootLayout({
@@ -25,6 +29,7 @@ export default function RootLayout({
             <body className={notoSansKr.className}>
                 <AuthSession>
                     <QueryProviders>
+                        <SessionHandler />
                         <HeaderSelector />
                         {children}
                         <Toaster />

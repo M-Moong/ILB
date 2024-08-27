@@ -4,24 +4,32 @@ import Image from 'next/image';
 import LinkCard from './LinkCard';
 import DeliveryCard from './DeliveryCard';
 import ChartCard from './ChartCard';
-
+const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 export default async function MyPage() {
     const { item: user } = await actionUserData();
-
     const baby = user?.extra?.baby;
     const subscribe = user?.extra?.subscribe;
-
+    const profile = user?.profileImage;
     return (
         <section className='py-7'>
             <div className='flex gap-5 items-center mb-14'>
                 <div className='w-[90px]'>
                     <div className='flex justify-center items-center w-[90px] h-[90px] rounded-full'>
-                        <Image
-                            src='/baby/baby_avatar.svg'
-                            width={60}
-                            height={60}
-                            alt='baby_profile_img'
-                        />
+                        {profile && profile?.slice(0, 6) === '/files' ? (
+                            <Image
+                                src={`${SERVER}${profile}`}
+                                width={60}
+                                height={60}
+                                alt='baby_profile_img'
+                            />
+                        ) : (
+                            <Image
+                                src='/baby/baby_avatar.svg'
+                                width={60}
+                                height={60}
+                                alt='baby_profile_img'
+                            />
+                        )}
                     </div>
                 </div>
                 {baby && (
@@ -32,7 +40,6 @@ export default async function MyPage() {
                                 님의 아이는 지금
                             </span>
                         </h3>
-
                         {baby && (
                             <>
                                 <p className='py-3.5 text-sm font-normal'>
@@ -53,8 +60,7 @@ export default async function MyPage() {
                     </div>
                 )}
             </div>
-
-            <ChartCard />
+            {baby && <ChartCard growData={baby.grow} />}
             {subscribe && <DeliveryCard subscribeDate={subscribe.date} />}
 
             <LinkCard title='내정보 수정' link='/mypage/editprofile' />

@@ -35,7 +35,7 @@ export async function emailCheck(email: string) {
         const resData = await res.json();
         return resData;
     } catch (error) {
-        console.log('error', error);
+        console.error('error', error);
     }
 }
 
