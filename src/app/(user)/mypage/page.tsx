@@ -13,14 +13,13 @@ export default async function MyPage() {
     const baby = user?.extra?.baby;
     const subscribe = user?.extra?.subscribe;
     const profile = user?.profileImage;
-    console.log('user', user);
 
     return (
         <section className='py-7'>
             <div className='flex gap-5 items-center mb-14'>
                 <div className='w-[90px]'>
                     <div className='flex justify-center items-center w-[90px] h-[90px] rounded-full'>
-                        {profile.slice(0, 6) === '/files' ? (
+                        {profile && profile?.slice(0, 6) === '/files' ? (
                             <Image
                                 src={`${SERVER}${profile}`}
                                 width={60}
@@ -29,7 +28,7 @@ export default async function MyPage() {
                             />
                         ) : (
                             <Image
-                                src={`${profile}`}
+                                src='/baby/baby_avatar.svg'
                                 width={60}
                                 height={60}
                                 alt='baby_profile_img'
