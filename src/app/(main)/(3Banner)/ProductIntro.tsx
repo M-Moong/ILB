@@ -26,7 +26,7 @@ export default function ProductIntro() {
                     alt='moble image'
                 />
             </div>
-            <Link href='/list' className='w-full text-center' scroll={false}>
+            <Link href='/list' className='w-full text-center'>
                 <Button
                     variant='linkToList'
                     size='lg'
