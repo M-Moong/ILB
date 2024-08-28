@@ -24,7 +24,7 @@ export default async function ListPage() {
                     우리 아이를 위해 준비했어요
                 </h1>
                 <StepList />
-                <Link href='/order' scroll={false}>
+                <Link href='/order'>
                     <Button
                         type='button'
                         className='my-[60px] box-border'

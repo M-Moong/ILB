@@ -50,7 +50,7 @@ export default function ProductTutorial() {
                     </div>
                 </div>
             </div>
-            <Link href='/order' className='w-full text-center' scroll={false}>
+            <Link href='/order' className='w-full text-center'>
                 <Button
                     variant='linkToOrder'
                     size='lg'
