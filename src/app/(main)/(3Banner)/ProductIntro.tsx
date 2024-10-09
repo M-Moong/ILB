@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import Link from 'next/link';
+import MobileFlowImage from '@/components/MobileFlowImage';
 import { Button } from '../../../components/ui/button';
 
 export default function ProductIntro() {
@@ -10,22 +10,7 @@ export default function ProductIntro() {
                 <br />
                 맞춤형 성장 패키지
             </h2>
-            <div className='relative mx-auto w-[206px] h-[380px] rounded-[47px] overflow-hidden'>
-                <Image
-                    className='mx-auto mt-[42px] mobile_flow'
-                    src='/list_page.webp'
-                    width={170}
-                    height={1217}
-                    alt='list page image'
-                />
-                <Image
-                    className='absolute -top-[10px] left-0'
-                    src='/mobile.png'
-                    fill
-                    style={{ objectFit: 'contain' }}
-                    alt='moble image'
-                />
-            </div>
+            <MobileFlowImage />
             <Link href='/list' className='w-full text-center' scroll={false}>
                 <Button
                     variant='linkToList'
