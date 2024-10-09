@@ -129,8 +129,6 @@
 
     .button-flip {
         animation-name: flip;
-        /* animation-duration: 0.5s;
-        animation-fill-mode: forwards; */
     }
 
     .mobile_flow {
